@@ -4,7 +4,7 @@ use warnings;
 
 use Getopt::Long;
 
-my $server = 'meseeks'; #= "0.0.0.0"; # Use this variable to set the remote server (where the logs will be copied)
+my $server = ''; # Use this variable to set the remote server (where the logs will be copied)
 my $directory = "./testData"; # Use this variable to set the directory where the log files will be copied from (defaults to the current directory)
 my $remoteDirectory = "~/logs";
 my $user = "pgrenon";
