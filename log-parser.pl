@@ -38,7 +38,7 @@ opendir (my $handler, $directory) || die "Unable to open directory $directory: $
 while (readdir $handler) {
 	if ($_ =~ /$currentDate\_1[89]/ || $_ =~ /$currentDate\_2[0]/) {
 			# ASSUMPTION: ssh keys have already been exchanged with the remote host (for the current user) and the key is contained under id_rsa
-			system ("scp -i ~/.ssh/id_rsa $directory/$_ $user\@$server:$remoteDirectory");
+			system ("scp -i ~/.ssh/id_rsa $directory/$_ $user\@$server:$remoteDirectory/$_");
 	}
 }
 
