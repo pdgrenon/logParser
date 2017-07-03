@@ -20,7 +20,7 @@ my $tenMinutesAgo = $secondCount - 600;
 if ($tenMinutesAgo < 0){
 	$tenMinutesAgo = 0;
 }
-print "ten minutes ago cutoff: $tenMinutesAgo\n"
+print "ten minutes ago: $tenMinutesAgo\n";
 
 opendir (my $dirHandle, $directory) || die "Unable to open directory $directory: $!";
 while (readdir $dirHandle) {
@@ -31,16 +31,16 @@ while (readdir $dirHandle) {
 				my $line = $_;
 				my @fields = split(/ /,$line);
 				# Grab the minutes and seconds from the time field
-				my(@fieldsMatch) = $fields[3] =~ /.*:\d\d:(\d\d):(\d\d)/;
+				my(@fieldsMatch) = $fields[3] =~ /.*\d\d\d\d:\d\d:(\d\d):(\d\d)/;
 				my $lineTime = ($fieldsMatch[0]*60 + $fieldsMatch[1]);
+				print "line time: $lineTime\n";
 				if ($lineTime >= $tenMinutesAgo ) {
-						print "line time: $lineTime\n"
 						if( $fields[8] == '500') {
 							print "$line";
 						}
 				}
 			}
-			close $fileHandle
+			close $fileHandle;
 		}
 }
 
