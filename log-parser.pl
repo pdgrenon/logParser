@@ -9,11 +9,7 @@ use Getopt::Long;
 my $server = ''; #= "0.0.0.0"; # Use this variable to set the remote server (where the logs will be copied)
 my $directory = "."; # Use this variable to set the directory where the log files will be copied from (defaults to the current directory)
 my $remoteDirectory = "~/logs";
-my $args = GetOptions("server|s=s" => \$server,
-											"directory|d=s" => \$directory,
-											"remoteDirectory|r=s" => \$remoteDirectory,
-											"help|s" => \&usage)
-											or die ("Error in command line arguments");
+my $args = GetOptions("server|s=s" => \$server, "directory|d=s" => \$directory, "remoteDirectory|r=s" => \$remoteDirectory, "help|s" => \&usage) or die ("Error in command line arguments");
 
 if (!$server) {
 	print "No remote server given. Exiting...\n";
