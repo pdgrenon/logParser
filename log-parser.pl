@@ -1,12 +1,10 @@
-# This script assumes that ssh keys have been exchanged between the remote server and the server from which
-# this script will be run
 
 use strict;
 use warnings;
 
 use Getopt::Long;
 
-my $server = ''; #= "0.0.0.0"; # Use this variable to set the remote server (where the logs will be copied)
+my $server = 'meseeks'; #= "0.0.0.0"; # Use this variable to set the remote server (where the logs will be copied)
 my $directory = "./testData"; # Use this variable to set the directory where the log files will be copied from (defaults to the current directory)
 my $remoteDirectory = "~/logs";
 my $args = GetOptions("server|s=s" => \$server, "directory|d=s" => \$directory, "remoteDirectory|r=s" => \$remoteDirectory, "help|s" => \&usage) or die ("Error in command line arguments");
@@ -24,7 +22,7 @@ Usage:
 	where:
 		--directory is the local log directory
 		--remoteDirectory is the remote log directory
-		-- help prints this usage information
+		--help prints this usage information
 END
 print $usage;
 exit(0);
@@ -38,8 +36,8 @@ chomp $currentDate;
 opendir (my $handler, $directory) || die "Unable to open directory $directory: $!";
 while (readdir $handler) {
 	if ($_ =~ /$currentDate\_1[89]/ || $_ =~ /$currentDate\_2[0]/) {
-			#system ("scp -i ~/id_rsa $directory/$_ $server:$remoteDirectory");
-			print "$_ would be copied\n";
+			# ASSUMPTION: ssh keys have already been exchanged with the remote host (for the current user) and the key is contained under id_rsa
+			system ("scp -i ~/.ssh/id_rsa $directory/$_ $server:$remoteDirectory");
 	}
 }
 
